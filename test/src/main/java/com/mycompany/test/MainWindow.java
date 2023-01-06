@@ -15,9 +15,9 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     
-   // class InvalidEquationException extends Exception {
+
    public void InvalidEquationException(String message) {
-       JOptionPane.showMessageDialog(MainWindow.this, "ERROR: "+message);
+       JOptionPane.showMessageDialog(MainWindow.this, "ERROR: "+ message);
    }
     
     public double Postfix(String equation) {
@@ -35,18 +35,24 @@ public class MainWindow extends javax.swing.JFrame {
             }
             else
             {
+                //Error if there is an operand but no numbers
                 if(stack.isEmpty()){
-                    InvalidEquationException("Empty stack, can't take 1st operand");
+                    InvalidEquationException("Unable to retrieve the first operand because the stack is empty.");
                     return -1;
                 }
+                
                 double operand2 = stack.pop();
+                
+                //Error if there is an operand but only one number
                 if(stack.isEmpty()){
-                    InvalidEquationException("Empty stack, can't take 2nd operand");
+                    InvalidEquationException("Unable to retrieve the second operand because the stack is empty.");
                     return -1;
                 }
+                
                 double operand1 = stack.pop();
                 
                 double result = 0;
+                
                 switch (c) {
                     case '+' -> result = operand1 + operand2;
                     case '-' -> result = operand1 - operand2;
@@ -58,7 +64,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         }
         if (stack.size() != 1) {
-            InvalidEquationException("Stack size is not correct (above or bellow 1)");
+            InvalidEquationException("Stack size is not correct (There is more or less numbers than 1 in the stack)");
             return -1;
         } 
         else{
@@ -69,15 +75,14 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         MainWindow_Label_Name = new javax.swing.JLabel();
         MainWindow_Label_Number2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        MainWindow_ScrollPanel_Answer = new javax.swing.JScrollPane();
         MainWindow_TextArea_Answer = new javax.swing.JTextArea();
         MainWindow_Label_Answer = new javax.swing.JLabel();
         MainWindow_Button_SOLVE = new javax.swing.JButton();
         MainWindow_TextField_Equaiton = new javax.swing.JTextField();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        MainWindow_MenuBar_Menu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
@@ -91,7 +96,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         MainWindow_TextArea_Answer.setColumns(20);
         MainWindow_TextArea_Answer.setRows(5);
-        jScrollPane1.setViewportView(MainWindow_TextArea_Answer);
+        MainWindow_ScrollPanel_Answer.setViewportView(MainWindow_TextArea_Answer);
 
         MainWindow_Label_Answer.setText("Answer");
 
@@ -114,12 +119,12 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        MainWindow_MenuBar_Menu.add(jMenu1);
 
         jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        MainWindow_MenuBar_Menu.add(jMenu2);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(MainWindow_MenuBar_Menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,7 +140,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .addComponent(MainWindow_Label_Answer))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(MainWindow_ScrollPanel_Answer, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,7 +171,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(MainWindow_Label_Answer)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(MainWindow_ScrollPanel_Answer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(59, Short.MAX_VALUE))
         );
 
@@ -176,6 +181,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void MainWindow_Button_SOLVEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MainWindow_Button_SOLVEActionPerformed
         String equation = MainWindow_TextField_Equaiton.getText();
         double result = Postfix(equation);
+        //check for result and if its -1 there is an error 
         if(result == -1){
             MainWindow_TextArea_Answer.setText("");
             MainWindow_TextField_Equaiton.setText("");
@@ -205,12 +211,11 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel MainWindow_Label_Answer;
     private javax.swing.JLabel MainWindow_Label_Name;
     private javax.swing.JLabel MainWindow_Label_Number2;
+    private javax.swing.JMenuBar MainWindow_MenuBar_Menu;
+    private javax.swing.JScrollPane MainWindow_ScrollPanel_Answer;
     private javax.swing.JTextArea MainWindow_TextArea_Answer;
     private javax.swing.JTextField MainWindow_TextField_Equaiton;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
